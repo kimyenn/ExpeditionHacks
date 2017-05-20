@@ -1,11 +1,13 @@
 import feedparser
 import json
+from array import array
+
 def feedReader():
-    linkList = ['http://feeds.bbci.co.uk/news/world/rss.xml',
+    linkList = ['http://feeds.bbci.co.uk/news/rss.xml?edition=uk',
                 'http://feeds.reuters.com/news/artsculture',
                 'http://feeds.reuters.com/reuters/businessNews',
                 'http://feeds.reuters.com/reuters/companyNews',
-                'http://rss.cnn.com/rss/cnn_topstories.rss',
+                'http://feeds.reuters.com/reuters/entertainment',
                 'http://feeds.reuters.com/reuters/environment',
                 'http://feeds.reuters.com/reuters/healthNews',
                 'http://feeds.reuters.com/reuters/lifestyle',
@@ -16,12 +18,13 @@ def feedReader():
                 'http://feeds.reuters.com/reuters/peopleNews',
                 'http://feeds.reuters.com/Reuters/PoliticsNews',
                 'http://feeds.reuters.com/reuters/scienceNews',
-                'http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml?edition=int',
+                'http://feeds.reuters.com/reuters/sportsNews',
                 'http://feeds.reuters.com/reuters/technologyNews',
                 'http://feeds.reuters.com/reuters/topNews',
                 'http://feeds.reuters.com/Reuters/domesticNews',
                 'http://feeds.reuters.com/Reuters/worldNews',
                 'http://www.aviationsafetymagazine.com/rss/']
+    
     feeds = []
     for link in linkList:
         parsedLink = feedparser.parse(link)
@@ -34,3 +37,5 @@ def feedReader():
                      entry['published'],
                      entry['published_parsed']]
             feeds.append(feedEntry)
+        
+feedReader()
