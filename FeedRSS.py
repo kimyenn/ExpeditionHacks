@@ -37,5 +37,4 @@ def feedReader():
                      entry['published'],
                      entry['published_parsed']]
             feeds.append(feedEntry)
-        
-feedReader()
+    return feeds
