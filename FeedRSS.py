@@ -2,11 +2,11 @@ import feedparser
 import json
 def feedReader():
     linkList = ['http://www.reuters.com/tools/rss',
-                'http://feeds.bbci.co.uk/news/rss.xml?edition=uk',
+                'http://feeds.bbci.co.uk/news/world/rss.xml',
                 'http://feeds.reuters.com/news/artsculture',
                 'http://feeds.reuters.com/reuters/businessNews',
                 'http://feeds.reuters.com/reuters/companyNews',
-                'http://feeds.reuters.com/reuters/entertainment',
+                'http://rss.cnn.com/rss/cnn_topstories.rss',
                 'http://feeds.reuters.com/reuters/environment',
                 'http://feeds.reuters.com/reuters/healthNews',
                 'http://feeds.reuters.com/reuters/lifestyle',
@@ -17,7 +17,7 @@ def feedReader():
                 'http://feeds.reuters.com/reuters/peopleNews',
                 'http://feeds.reuters.com/Reuters/PoliticsNews',
                 'http://feeds.reuters.com/reuters/scienceNews',
-                'http://feeds.reuters.com/reuters/sportsNews',
+                'http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml?edition=int',
                 'http://feeds.reuters.com/reuters/technologyNews',
                 'http://feeds.reuters.com/reuters/topNews',
                 'http://feeds.reuters.com/Reuters/domesticNews',
