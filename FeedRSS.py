@@ -1,8 +1,7 @@
 import feedparser
 import json
 def feedReader():
-    linkList = ['http://www.reuters.com/tools/rss',
-                'http://feeds.bbci.co.uk/news/world/rss.xml',
+    linkList = ['http://feeds.bbci.co.uk/news/world/rss.xml',
                 'http://feeds.reuters.com/news/artsculture',
                 'http://feeds.reuters.com/reuters/businessNews',
                 'http://feeds.reuters.com/reuters/companyNews',
