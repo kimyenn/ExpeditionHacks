@@ -23,7 +23,15 @@ def feedReader():
                 'http://feeds.reuters.com/Reuters/domesticNews',
                 'http://feeds.reuters.com/Reuters/worldNews',
                 'http://www.aviationsafetymagazine.com/rss/']
+    feeds = []
     for link in linkList:
-        print(link)
         parsedLink = feedparser.parse(link)
-        print(parsedLink)
+        
+        for entry in parsedLink.entries:
+            feedEntry = [entry['title'], entry['title_detail']['value'], 
+                     entry['summary'],
+                     entry['summary_detail']['value'], 
+                     entry['link'],
+                     entry['published'],
+                     entry['published_parsed']]
+            feeds.append(feedEntry)
