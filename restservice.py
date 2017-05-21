@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def api_root():
-    return 'Welcomesss'
+    return 'Welcome'
 
 @app.route('/articles')
 def api_feed_articles():
