@@ -23,7 +23,7 @@ def api_feed_articles():
 @app.route('/update', methods=['POST'])
 def api_update():
     content = request.get_json(silent=True)
-    return content
+    return 'updated'
 
 @app.route('/feedback/<roleid>', methods=['POST'])
 def api_feedback(roleid):
@@ -36,7 +36,7 @@ def api_feedback(roleid):
         role_desc = 'nkpg'
     content = request.get_json(silent=True)
     modeling.analyze_feedback(content, role_desc)
-    return content
+    return "Update Feedback"
 
 @app.route('/roles/<roleid>')
 def api_roles(roleid):
