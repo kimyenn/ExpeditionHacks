@@ -6,6 +6,7 @@ def feedReader():
     linkList = ['http://feeds.bbci.co.uk/news/rss.xml?edition=uk',
                 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
                 'http://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+                'http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml',
                 'http://rss.cnn.com/rss/cnn_topstories.rss',
                 'http://rss.cnn.com/rss/cnn_health.rss',
                 'http://rss.cnn.com/rss/cnn_showbiz.rss',
