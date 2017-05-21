@@ -155,7 +155,7 @@ function load(url){
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url, true);
 xhr.onload = function () {
-    //console.log("success" + xhr.responseText);
+    console.log("success" + xhr.responseText);
     obj = JSON.parse(xhr.responseText);
 
 for (var i = 0; i < obj.length; i++) {
