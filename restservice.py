@@ -32,7 +32,7 @@ def api_roles(roleid):
         role_desc = 'ice_director'
     if roleid == '2':
         role_desc = 'md_syria'
-    if roleid == '2':
+    if roleid == '3':
         role_desc = 'nkpg'
     
     modeling.retrieve_news(role_desc)
