@@ -1,5 +1,6 @@
 import cPickle as pickle
 import sys
+import json
 import pandas as pd
 import nltk, string
 import sklearn
@@ -55,6 +56,9 @@ def format_df_all(news_feeds):
 def format_df_one(news_feeds, advisor):
     labels = ['title', 'summary', 'link']
     df = pd.DataFrame.from_records(news_feeds, columns=labels)
+    for i in xrange(len(df)):
+        new_summary = df.iloc[i, 1].split('<')[0]
+        df.set_value(i, 'summary', new_summary)
 
     vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
     terms = [role[1] for role in roles if role[0] == advisor][0]
@@ -116,17 +120,22 @@ def predict(df, advisor, limit=10):
     df = df.iloc[:limit,]
     df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8', sep='|')
 
-def add_and_retrain_model(data):
-    for role in roles:
-        df[role[0]] = 0
+def add_and_retrain_model(feedback):
+    # feedback is a list
 
-    vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
-    terms_list = [role[1] for role in roles]
+    # for role in roles:
+    #     df[role[0]] = 0
 
-    for i in xrange(len(df)):
-        title = df.iloc[i]['title']
-        tfidf = vect.fit_transform([title, terms_list[0], terms_list[1], terms_list[2]])
-        df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
+    # vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+    # terms_list = [role[1] for role in roles]
+
+    # for i in xrange(len(df)):
+    #     title = df.iloc[i]['title']
+    #     tfidf = vect.fit_transform([title, terms_list[0], terms_list[1], terms_list[2]])
+    #     df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
+
+    for item in feedback:
+        feedback
 
     for role in roles:
         df['y_'+ role[0]] = 0
@@ -152,6 +161,7 @@ if __name__ == '__main__':
             vectorizer = pickle.load(f)
         advisor = sys.argv[1]
         feedback = sys.argv[2]
-        add_and_retrain_model()
+        data = json.loads(feedback) 
+        add_and_retrain_model(data, advisor)
 
 
