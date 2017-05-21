@@ -113,6 +113,8 @@ def predict(df, advisor, limit=10):
         return "Could not find advisor role. Options are ice_director, md_syria, or nkpg" 
     with open('models/' + model + '.pkl') as f:
         nb_model = pickle.load(f)
+    with open('models/count_vectorizer.pkl') as f:
+        count_vectorizer = pickle.load(f)
 
     X = df['title'] + df['summary']    
     tf = count_vectorizer.transform(X)

@@ -1,11 +1,11 @@
 from flask import Flask, url_for, abort, request, jsonify
+import modeling
 import json
 import csv
 app = Flask(__name__)
 
 @app.route('/')
 def api_root():
-    print("entro")
     return 'Welcomesss'
 
 @app.route('/articles')
@@ -23,7 +23,6 @@ def api_feed_articles():
 @app.route('/update', methods=['POST'])
 def api_update():
     content = request.get_json(silent=True)
-    print(content)
     return "hoa"
 
 @app.route('/roles/<roleid>')
@@ -36,7 +35,7 @@ def api_roles(roleid):
     if roleid == '2':
         role_desc = 'nkpg'
     
-    retrieve_news(role_desc)
+    modeling.retrieve_news(role_desc)
     return 'role ' + role_desc
 
 
