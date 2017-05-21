@@ -1,0 +1,240 @@
+<html>
+<head>
+<title>jQuery Hello World</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+@font-face {
+    font-family: LightFont;
+    src: url(fonts/Roboto-Light.ttf);
+}
+@font-face {
+    font-family: myMediumFont;
+    src: url(fonts/Roboto-Medium.ttf);
+}
+</style>
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="font-family: myMediumFont;">Demo</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#" style="font-family: myMediumFont;">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="font-family: myMediumFont;">Roles <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" style="font-family: myMediumFont;" >ICE Director</a></li>
+                  <li><a href="#" style="font-family: myMediumFont;" >North korea policy group</a></li>
+                  <li><a href="#" style="font-family: myMediumFont;" >Mission director;Syria</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+<div class="bs-docs-header" id="content" tabindex="-1" style="background-color:#d11f5d;margin-bottom: 20px;">
+	<div class="container">
+		<div id="carbonads-container">
+			<div class="carbonad">
+				<h1 style="color: white; font-family: myMediumFont;">Expeditionhacks</h1>
+				<div id="azcarbon">
+					<p style="color: #cddc39; font-family: myMediumFont;">News from all over here.</p> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container theme-showcase" role="main">
+
+    <div class="row" id="container-news">
+
+      <!--
+
+        <div class="col-xs-12 col-md-6 col-lg-4 list-group">
+          <a href="#" class="list-group-item active">
+            <div class="list-group-item active media"> 
+              <div class="media-body">
+                   <div style="height: 140;max-height: 135;">
+                <h4 class="list-group-item-heading" style="font-family: myMediumFont;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">Media heading asdasd asdasd asdasdas asd asddasd asdasdas asdasdas asdasdadsaadsdsasda asdasdaaassd asdasdasa</h4> <p class="list-group-item-text" style="height: 90px;font-family: LightFont;">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                   </div>
+
+
+                </div> 
+                 <div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">
+                    <div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-up" style="margin-left: -9;" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>
+ 
+                    
+                 </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="col-xs-12 col-md-6 col-lg-4 list-group">
+        	<a href="#" class="list-group-item active">
+            <div class="list-group-item active media"> 
+	            <div class="media-body">
+                   <div style="height: 140;max-height: 135;">
+	            	<h4 class="list-group-item-heading" style="font-family: myMediumFont;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">Media heading</h4> <p class="list-group-item-text" style="height: 90px;font-family: LightFont;">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                   </div>
+
+
+                </div> 
+                 <div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">
+                    <div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-up" style="margin-left: -9;" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>
+
+                 </div>
+            </div>
+            </a>
+        </div>
+
+                <div class="col-xs-12 col-md-6 col-lg-4 list-group">
+        	<a href="#" class="list-group-item active">
+            <div class="list-group-item active media"> 
+	            <div class="media-left"> 
+		            <img alt="64x64" class="media-object" data-src="holder.js/64x64" style="width: 64px; height: 64px;" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWMyN2EwODI0MiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1YzI3YTA4MjQyIj48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxMy40Njg3NSIgeT0iMzYuNSI+NjR4NjQ8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" data-holder-rendered="true"> 
+		           
+	            </div> 
+	            <div class="media-body"> 
+                  <div style="height: 140;max-height: 135;">
+	            	<h4 class="list-group-item-heading" style="font-family: myMediumFont;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">Media heading asdasdsa adsdaddas adasdas asdasdassd adasdaa adadaassa </h4> <p class="list-group-item-text" style="height: 90px;font-family: LightFont;">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+	            	</div> 
+                </div> 
+                 <div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">
+                    <div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-up" style="margin-left: -9;" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>
+                    
+                    
+                 </div>
+            </div>
+            </a>
+        </div>
+ -->
+
+    </div>
+
+</div>	
+
+
+
+
+</body>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="js/jquery.csv.min.js"></script>
+
+
+
+<script type="text/javascript">
+
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://127.0.0.1:5000/articles", true);
+xhr.onload = function () {
+    //console.log("success" + xhr.responseText);
+    obj = JSON.parse(xhr.responseText);
+
+for (var i = 0; i < obj.length; i++) {
+
+  console.log(obj[i].title);
+  console.log(obj[i].summary);
+  console.log(obj[i].link);
+
+
+$("#container-news").append('<div class="col-xs-12 col-md-6 col-lg-4 list-group">' +
+          '<div class="list-group-item active">' +
+            '<div class="list-group-item active media">' +
+              '<div class="media-body">' +
+
+                '<div style="height: 140;max-height: 135;">' +
+                '<a href="' + obj[i].link + '" style="text-decoration: none" target="_blank"><h4 class="list-group-item-heading" style="font-family: myMediumFont;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;color: white;">' + obj[i].title + '</h4></a>' +
+                '<a href="' + obj[i].link + '" style="text-decoration: none" target="_blank">' +
+                '<p class="list-group-item-text" style="height: 90px;font-family: LightFont;">' + obj[i].summary  + '</p></a>' +
+                   '</div>' +
+
+                '</div>' +
+                 '<div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">' +
+                    '<div class="badge" style="background-color: transparent;padding: 5px 9px;">' +
+                      '<i class="fa fa-thumbs-o-up" style="margin-left: -9;cursor:pointer;"  aria-hidden="true"></i>' +
+                      //'<span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span>' +
+                    '</div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;">' +
+                      '<i class="fa fa-thumbs-o-down" style="cursor:pointer;" aria-hidden="true"></i>' +
+                      //'<span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span>' +
+                    '</div>' +
+ 
+                    
+                 '</div>' +
+            '</div>' +
+            '</div>' +
+        '</div>'
+
+
+  );
+
+
+/*
+
+        <div class="col-xs-12 col-md-6 col-lg-4 list-group">
+          <a href="#" class="list-group-item active">
+            <div class="list-group-item active media"> 
+              <div class="media-body">
+                   <div style="height: 140;max-height: 135;">
+                <h4 class="list-group-item-heading" style="font-family: myMediumFont;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;overflow: hidden;">Media heading asdasd asdasd asdasdas asd asddasd asdasdas asdasdas asdasdadsaadsdsasda asdasdaaassd asdasdasa</h4> <p class="list-group-item-text" style="height: 90px;font-family: LightFont;">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                   </div>
+
+
+                </div> 
+                 <div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">
+                    <div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-up" style="margin-left: -9;" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span></div>
+ 
+                    
+                 </div>
+            </div>
+            </a>
+        </div> */
+
+
+
+
+};
+
+    
+
+};
+xhr.onerror = function () {
+   console.log("error" + xhr.error);
+}
+xhr.send();
+
+
+//http://127.0.0.1:5000/articles
+
+
+
+</script>
+
+
+
+
+</html>
