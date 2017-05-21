@@ -1,4 +1,5 @@
 import cPickle as pickle
+import sys
 import pandas as pd
 import nltk, string
 import sklearn
@@ -27,15 +28,15 @@ def calculate_cosine_similarity(doc1, doc2):
     tfidf = vect.fit_transform([doc1, doc2])
     return (tfidf * tfidf.T).A
 
-
 def obtain_rss_feeds():
     feeds = feedReader()
 
     labels = ['title', 'summary', 'link']
-    print feeds
     return pd.DataFrame.from_records(feeds, columns=labels)
 
-def format_df(df):
+def format_df_all(news_feeds):
+    labels = ['title', 'summary', 'link']
+    df = pd.DataFrame.from_records(news_feeds, columns=labels)
     for role in roles:
         df[role[0]] = 0
 
@@ -49,6 +50,21 @@ def format_df(df):
 
     for role in roles:
         df['y_'+ role[0]] = 0
+
+
+def format_df_one(news_feeds, advisor):
+    labels = ['title', 'summary', 'link']
+    df = pd.DataFrame.from_records(news_feeds, columns=labels)
+
+    vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+    terms = [role[1] for role in roles if role[0] == advisor][0]
+
+    df['similarity'] = 0
+    for i in xrange(len(df)):
+        title = df.iloc[i]['title']
+        tfidf = vect.fit_transform([title, terms])
+        df.iloc[i,-1] = (tfidf * tfidf.T).A[0][1:]
+    return df
 
 def build_MultinomialNB(df):
     ### code to build a NB model for each role to be run for only the first time
@@ -80,35 +96,62 @@ def build_MultinomialNB(df):
 
 def predict(df, advisor, limit=10):
     if advisor == 'ice_director':
-        model = ice_director_nb
+        model = 'ice_director_nb'
     elif advisor == 'md_syria':
-        model = md_syria_nb
+        model = 'md_syria_nb'
     elif advisor == 'nkpg':
-        model = nkpg_nb
+        model = 'nkpg_nb'
     else:
         return "Could not find advisor role. Options are ice_director, md_syria, or nkpg" 
-    with open('../data/count_vectorizer.pkl') as f:
-        count_vectorizer = pickle.load(f)
-    with open('../data/' + model + '.pkl') as f:
-        model = pickle.load(f)
+    with open('models/' + model + '.pkl') as f:
+        nb_model = pickle.load(f)
 
-    data = df['title'] + df['summary']    
-    X = count_vectorizer.fit_transform(data)
-    predictions = model.predict(X)
-    df['predictions'] = predictions
-    df = df[df['predictions'] == 1]
+    X = df['title'] + df['summary']    
+    tf = count_vectorizer.transform(X)
+    df['y'] = nb_model.predict(tf)
+    df = df[df['y'] == 1]
+    df.drop_duplicates(subset='title', inplace=True)
+
+    df.sort_values(by='similarity', inplace=True, ascending=False)
+    df = df.iloc[:limit,]
+    df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8')
+
+def add_and_retrain_model(data):
+    for role in roles:
+        df[role[0]] = 0
 
     vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
-    terms_list = [role[1] for role in roles if role==advisor]
-    df['similarity']
+    terms_list = [role[1] for role in roles]
+
     for i in xrange(len(df)):
         title = df.iloc[i]['title']
-        tfidf = vect.fit_transform([title, terms_list])
-        df.iloc[i,:-1] = (tfidf * tfidf.T).A[0][:-1]
-    df.sort_values(advisor, inplace=True, ascending=False)
-    df = df.iloc[:limit,]
-    df.to_csv(role + '_results.csv', index=False)
+        tfidf = vect.fit_transform([title, terms_list[0], terms_list[1], terms_list[2]])
+        df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
 
-def add_and_retrain_model(model, data):
+    for role in roles:
+        df['y_'+ role[0]] = 0
     pass
+
+if __name__ == '__main__':
+    if len(sys.argv) == 2: # only run model, return results
+        advisor = sys.argv[1]
+        # if advisor == 'ice_director':
+        #     model = ice_director_nb
+        # elif advisor == 'md_syria':
+        #     model = md_syria_nb
+        # elif advisor == 'nkpg':
+        #     model = nkpg_nb
+    with open('models/count_vectorizer.pkl') as f:
+        count_vectorizer = pickle.load(f)
+        news_feeds = feedReader()
+        news_df = format_df_one(news_feeds, advisor)
+        predict(news_df, advisor)
+
+    elif len(sys.argv) == 3: # retrain model, no return
+        with open('models/count_vectorizer.pkl') as f:
+            vectorizer = pickle.load(f)
+        advisor = sys.argv[1]
+        feedback = sys.argv[2]
+        add_and_retrain_model()
+
 
