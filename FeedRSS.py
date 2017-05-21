@@ -16,7 +16,7 @@ def feedReader():
                 'http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml',
                 'http://rss.nytimes.com/services/xml/rss/nyt/NYRegion.xml',
                 'https://cityroom.blogs.nytimes.com/feed/',
-                'http://rss.nytimes.com/services/xml/rss/nyt/Business.xml
+                'http://rss.nytimes.com/services/xml/rss/nyt/Business.xml',
                 'http://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml',
                 'http://rss.nytimes.com/services/xml/rss/nyt/SmallBusiness.xml',
                 'http://rss.nytimes.com/services/xml/rss/nyt/Economy.xml',
@@ -77,9 +77,8 @@ def feedReader():
         parsedLink = feedparser.parse(link)
         
         for entry in parsedLink.entries:
-            feedEntry = [entry['title'], entry['title_detail']['value'], 
-                     entry['summary'],
-                     entry['summary_detail']['value'], 
+            feedEntry = [entry['title'], 
+                     entry['summary'], 
                      entry['link']]
             feeds.append(feedEntry)
     return feeds

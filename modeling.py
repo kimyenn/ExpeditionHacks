@@ -28,11 +28,11 @@ def calculate_cosine_similarity(doc1, doc2):
     return (tfidf * tfidf.T).A
 
 
-def obtain_new_feeds():
+def obtain_rss_feeds():
     feeds = feedReader()
 
     labels = ['title', 'summary', 'link']
-    newnews = pd.DataFrame.from_records(feeds, columns=labels)
+    return pd.DataFrame.from_records(feeds, columns=labels)
 
 def format_df(df):
     for role in roles:
@@ -47,7 +47,7 @@ def format_df(df):
         df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
 
     for role in roles:
-    df['y_'+ role[0]] = 0
+        df['y_'+ role[0]] = 0
 
 def build_MultinomialNB(df):
     ### code to build a NB model for each role to be run for only the first time
@@ -77,8 +77,36 @@ def build_MultinomialNB(df):
     nkpg_nb.fit(cv, y_nkpg)
     return count_vectorizer, ice_director_nb, md_syria_nb, nkpg_nb
 
-def load_model(model):
-    pass
+def predict(df, advisor, limit=10):
+    if advisor == 'ice_director':
+        model = ice_director_nb
+    elif advisor == 'md_syria':
+        model = md_syria_nb
+    elif advisor == 'nkpg':
+        model = nkpg_nb
+    else:
+        return "Could not find advisor role. Options are ice_director, md_syria, or nkpg" 
+    with open('../data/count_vectorizer.pkl') as f:
+        count_vectorizer = pickle.load(f)
+    with open('../data/' + model + '.pkl') as f:
+        model = pickle.load(f)
+
+    data = df['title'] + df['summary']    
+    X = count_vectorizer.fit_transform(data)
+    predictions = model.predict(X)
+    df['predictions'] = predictions
+    df = df[df['predictions'] == 1]
+
+    vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+    terms_list = [role[1] for role in roles if role==advisor]
+    df['similarity']
+    for i in xrange(len(df)):
+        title = df.iloc[i]['title']
+        tfidf = vect.fit_transform([title, terms_list])
+        df.iloc[i,:-1] = (tfidf * tfidf.T).A[0][:-1]
+    df.sort_values(advisor, inplace=True, ascending=False)
+    df = df.iloc[:limit,]
+    df.to_csv(role + '_results.csv', index=False)
 
 def add_and_retrain_model(model, data):
     pass
