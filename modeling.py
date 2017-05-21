@@ -13,11 +13,10 @@ roles = [['ice_director', 'mexico mexican drug smuggling border cartel'],
         ['nkpg', 'north korea']]
 
 stemmer = SnowballStemmer('english')
+remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 
 def stem_tokens(tokens):
     return [stemmer.stem(item) for item in tokens]
-
-remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)
 
 # remove punctuation, lowercase
 def normalize(text):
@@ -30,35 +29,57 @@ def calculate_cosine_similarity(doc1, doc2):
 
 
 def obtain_new_feeds():
-	feeds = feedReader()
+    feeds = feedReader()
 
-	labels = ['title', 'summary', 'link', 'published']
-	df = pd.DataFrame.from_records(feeds, columns=labels)
-	for role in roles:
-	    df[role[0]] = 0
+    labels = ['title', 'summary', 'link']
+    newnews = pd.DataFrame.from_records(feeds, columns=labels)
+
+def format_df(df):
+    for role in roles:
+        df[role[0]] = 0
+
+    vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
+    terms_list = [role[1] for role in roles]
+
+    for i in xrange(len(df)):
+        title = df.iloc[i]['title']
+        tfidf = vect.fit_transform([title, terms_list[0], terms_list[1], terms_list[2]])
+        df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
+
+    for role in roles:
+    df['y_'+ role[0]] = 0
 
 def build_MultinomialNB(df):
     ### code to build a NB model for each role to be run for only the first time
 
+    positive_threshold = 0.05 # pretty low threshold which can be changed in the future
+    for i in xrange(len(df)):
+        if df.iloc[i][3] > positive_threshold:
+            df.set_value(i, 'y_ice_director', 1) 
+        if df.iloc[i][4] > positive_threshold:
+            df.set_value(i, 'y_md_syria', 1) 
+        if df.iloc[i][5] > positive_threshold:
+            df.set_value(i, 'y_nkpg', 1) 
+
     X = df['title'] + df['summary']
     y_ice = df['y_ice_director']
-	y_md_syria = df['y_md_syria']
-	y_nkpg = df['y_nkpg']
+    y_md_syria = df['y_md_syria']
+    y_nkpg = df['y_nkpg']
     count_vectorizer = CountVectorizer(stop_words='english')
     cv = count_vectorizer.fit_transform(X)
 
     ice_director_nb = MultinomialNB()
-	md_syria_nb = MultinomialNB()
-	nkpg_nb = MultinomialNB()
+    md_syria_nb = MultinomialNB()
+    nkpg_nb = MultinomialNB()
 
     ice_director_nb.fit(cv, y_ice)
-	md_syria_nb.fit(cv, y_md_syria)
-	nkpg_nb.fit(cv, y_nkpg)
+    md_syria_nb.fit(cv, y_md_syria)
+    nkpg_nb.fit(cv, y_nkpg)
     return count_vectorizer, ice_director_nb, md_syria_nb, nkpg_nb
 
 def load_model(model):
-	pass
+    pass
 
-def retrain_model(model, data):
-	pass
+def add_and_retrain_model(model, data):
+    pass
 
