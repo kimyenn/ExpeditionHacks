@@ -32,6 +32,7 @@ def obtain_rss_feeds():
     feeds = feedReader()
 
     labels = ['title', 'summary', 'link']
+    print feeds
     return pd.DataFrame.from_records(feeds, columns=labels)
 
 def format_df(df):
