@@ -125,6 +125,11 @@ def predict(df, advisor, limit=10):
     df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8', sep='|')
 
 def add_and_retrain_model(feedback, advisor):
+    ''' Models are currently being retrain on data/training_data.csv and whatever articles receiving feedback.
+    Articles with feedback are added to the training set. If/when the training set gets large (> 1M entries), 
+    partial_fit can be used to train in batches. It would take a while for this to occur, so it is not here.
+    '''
+
     update_col = 'y_' + advisor
     training = pd.read_csv('data/training_data.csv')
 
@@ -151,8 +156,9 @@ def add_and_retrain_model(feedback, advisor):
     md_syria_nb.fit(tf, y_md_syria)
     nkpg_nb.fit(tf, y_nkpg)
 
+    training.to_csv("data/training_data.csv", index=False, encoding='utf-8')
     with open('models/count_vectorizer.pkl', 'w') as f:
-    pickle.dump(count_vectorizer, f)
+        pickle.dump(count_vectorizer, f)
     with open('models/ice_director_nb.pkl', 'w') as f:
         pickle.dump(ice_director_nb, f)
     with open('models/md_syria_nb.pkl', 'w') as f:
