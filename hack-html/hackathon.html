@@ -9,6 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <style>
+var global = 1;
 @font-face {
     font-family: LightFont;
     src: url(fonts/Roboto-Light.ttf);
@@ -155,7 +156,7 @@ function load(url){
 var xhr = new XMLHttpRequest();
 xhr.open("GET", url, true);
 xhr.onload = function () {
-    console.log("success" + xhr.responseText);
+    //console.log("success" + xhr.responseText);
     obj = JSON.parse(xhr.responseText);
 
 for (var i = 0; i < obj.length; i++) {
@@ -179,10 +180,10 @@ $("#container-news").append('<div class="col-xs-12 col-md-6 col-lg-4 list-group"
                 '</div>' +
                  '<div class="row" style="margin-bottom: -10;margin-left: 1px;padding-top: 20px;">' +
                     '<div class="badge" style="background-color: transparent;padding: 5px 9px;">' +
-                      '<i class="fa fa-thumbs-o-up" style="margin-left: -9;cursor:pointer;"  aria-hidden="true"></i>' +
+                      '<i class="fa fa-thumbs-o-up" style="margin-left: -9;cursor:pointer;" onclick="like()"  aria-hidden="true"></i>' +
                       //'<span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span>' +
                     '</div>/<div class="badge" style="background-color: transparent;padding: 5px 9px;">' +
-                      '<i class="fa fa-thumbs-o-down" style="cursor:pointer;" aria-hidden="true"></i>' +
+                      '<i class="fa fa-thumbs-o-down" style="cursor:pointer;" aria-hidden="true" onclick="like()" ></i>' +
                       //'<span style="margin-left: 5px; color:#eeeeee; font-family: LightFont;">42</span>' +
                     '</div>' +
  
@@ -233,20 +234,32 @@ xhr.send();
 }
 
 
-load("http://127.0.0.1:5000/articles");
+load("http://127.0.0.1:5000/roles/" + global);
 
 
 
 function show(no){
-
+global = no;
 //http://127.0.0.1:5000/roles/
 
 $("#container-news").empty();
 
-load("http://127.0.0.1:5000/roles/" + no);
+load("http://127.0.0.1:5000/roles/" + global);
 
 
 //alert("alert" + no);
+
+}
+
+
+
+function like(no){
+
+alert("check");
+
+
+
+
 
 }
 
