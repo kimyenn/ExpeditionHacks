@@ -25,6 +25,19 @@ def api_update():
     content = request.get_json(silent=True)
     return content
 
+@app.route('/feedback/<roleid>', methods=['POST'])
+def api_feedback(roleid):
+    role_desc = ''
+    if roleid == '1':
+        role_desc = 'ice_director'
+    if roleid == '2':
+        role_desc = 'md_syria'
+    if roleid == '3':
+        role_desc = 'nkpg'
+    content = request.get_json(silent=True)
+    modeling.analyze_feedback(content, role_desc)
+    return content
+
 @app.route('/roles/<roleid>')
 def api_roles(roleid):
     role_desc = ''
