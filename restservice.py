@@ -11,7 +11,7 @@ def api_root():
 @app.route('/articles')
 def api_feed_articles():
     output =[]
-    with open('/Users/jaircastillo/Downloads/nkpg_results.csv') as csvfile: 
+    with open('data/nkpg_results.csv') as csvfile: 
         reader = csv.DictReader(csvfile, delimiter='|') 
         data = {}
         for row in reader:
