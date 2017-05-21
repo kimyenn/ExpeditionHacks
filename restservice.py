@@ -49,7 +49,15 @@ def api_roles(roleid):
         role_desc = 'nkpg'
     
     modeling.retrieve_news(role_desc)
-    return 'Current role ' + role_desc
+    output =[]
+    with open('data/'+role_desc+'.csv') as csvfile: 
+        reader = csv.DictReader(csvfile, delimiter='|') 
+        data = {}
+        for row in reader:
+            data = {'title': row['title'], 'summary': row['summary'], 'link': row['link']}
+            output.append(data)
+        json_data = json.dumps(output) 
+    return json_data
 
 
 if __name__ == '__main__':
