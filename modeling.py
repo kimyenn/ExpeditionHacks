@@ -114,7 +114,7 @@ def predict(df, advisor, limit=10):
 
     df.sort_values(by='similarity', inplace=True, ascending=False)
     df = df.iloc[:limit,]
-    df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8')
+    df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8', sep='|')
 
 def add_and_retrain_model(data):
     for role in roles:
@@ -133,6 +133,8 @@ def add_and_retrain_model(data):
     pass
 
 if __name__ == '__main__':
+    with open('models/count_vectorizer.pkl') as f:
+        count_vectorizer = pickle.load(f)
     if len(sys.argv) == 2: # only run model, return results
         advisor = sys.argv[1]
         # if advisor == 'ice_director':
@@ -141,8 +143,6 @@ if __name__ == '__main__':
         #     model = md_syria_nb
         # elif advisor == 'nkpg':
         #     model = nkpg_nb
-    with open('models/count_vectorizer.pkl') as f:
-        count_vectorizer = pickle.load(f)
         news_feeds = feedReader()
         news_df = format_df_one(news_feeds, advisor)
         predict(news_df, advisor)
