@@ -137,7 +137,7 @@ def add_and_retrain_model(feedback, advisor):
         title = item['title']
         to_update = training[training['title'] == title].index.tolist()
         for ix in to_update:
-            training.set_value(ix, update_col, item['feedback'])
+            training.set_value(ix, update_col, item['like'])
 
     with open('models/ice_director_nb.pkl') as f:
         ice_director_nb = pickle.load(f)
@@ -166,19 +166,30 @@ def add_and_retrain_model(feedback, advisor):
     with open('models/nkpg_nb.pkl', 'w') as f:
         pickle.dump(nkpg_nb, f)
 
-if __name__ == '__main__':
+def retrieve_news(advisor):
     with open('models/count_vectorizer.pkl') as f:
         count_vectorizer = pickle.load(f)
-    if len(sys.argv) == 2: # only run model, return results
-        advisor = sys.argv[1]
         news_feeds = feedReader()
         news_df = format_df_one(news_feeds, advisor)
         predict(news_df, advisor)
 
-    elif len(sys.argv) == 3: # retrain model, no return
-        advisor = sys.argv[1]
-        feedback = sys.argv[2]
-        data = json.loads(feedback) 
-        add_and_retrain_model(data, advisor)
+def analyze_feedback(feedback, advisor):
+    data = json.loads(feedback) 
+    add_and_retrain_model(data, advisor)
+
+# if __name__ == '__main__':
+#     with open('models/count_vectorizer.pkl') as f:
+#         count_vectorizer = pickle.load(f)
+#     if len(sys.argv) == 2: # only run model, return results
+#         advisor = sys.argv[1]
+#         news_feeds = feedReader()
+#         news_df = format_df_one(news_feeds, advisor)
+#         predict(news_df, advisor)
+
+#     elif len(sys.argv) == 3: # retrain model, no return
+#         advisor = sys.argv[1]
+#         feedback = sys.argv[2]
+#         data = json.loads(feedback) 
+#         add_and_retrain_model(data, advisor)
 
 
