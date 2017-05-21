@@ -17,9 +17,6 @@ Utilizing RSS Feeds, NLP, and a specific machine learning algorithm for each adv
 In the end, we are able to present the top 10 (configurable) news snippet for any specific advisor in a clean and intuitive UI :+1:
 
 
-Props to Mr. Doob and his [code editor](http://mrdoob.com/projects/code-editor/), from which
-the inspiration to this, and some handy implementation hints, came.
-
 ### What we used:
 
  * [nltk](http://www.nltk.org/) processing news contect
