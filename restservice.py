@@ -36,7 +36,15 @@ def api_feedback(roleid):
         role_desc = 'nkpg'
     content = request.get_json(silent=True)
     modeling.analyze_feedback(content, role_desc)
-    return "Update Feedback"
+    output =[]
+    with open('data/'+role_desc+'_results.csv') as csvfile: 
+        reader = csv.DictReader(csvfile, delimiter='|') 
+        data = {}
+        for row in reader:
+            data = {'title': row['title'], 'summary': row['summary'], 'link': row['link']}
+            output.append(data)
+        json_data = json.dumps(output) 
+    return json_data
 
 @app.route('/roles/<roleid>')
 def api_roles(roleid):
