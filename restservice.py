@@ -5,30 +5,40 @@ app = Flask(__name__)
 
 @app.route('/')
 def api_root():
-    return 'Welcome'
-
-'''@app.route('/article', methods = ['POST'])
-def api_article():
-    if not request.json:
-        abort(400)
-    print(jsonify(request.json)
-    return request.json '''
+    print("entro")
+    return 'Welcomesss'
 
 @app.route('/articles')
 def api_feed_articles():
     output =[]
-    with open('/Users/jaircastillo/Downloads/training_data.csv') as csvfile: 
-        reader = csv.DictReader(csvfile) 
+    with open('/Users/jaircastillo/Downloads/nkpg_results.csv') as csvfile: 
+        reader = csv.DictReader(csvfile, delimiter='|') 
         data = {}
-        for row in reader: 
+        for row in reader:
             data = {'title': row['title'], 'summary': row['summary'], 'link': row['link']}
             output.append(data)
         json_data = json.dumps(output) 
     return json_data
 
-@app.route('/ventas/<articleid>')
-def api_ventas(articleid):
-    return 'You are reading ' + articleid
+@app.route('/update', methods=['POST'])
+def api_update():
+    content = request.get_json(silent=True)
+    print(content)
+    return "hoa"
+
+@app.route('/roles/<roleid>')
+def api_roles(roleid):
+    role_desc = ''
+    if roleid == '1':
+        role_desc = 'ice_director'
+    if roleid == '2':
+        role_desc = 'md_syria'
+    if roleid == '2':
+        role_desc = 'nkpg'
+    
+    retrieve_news(role_desc)
+    return 'role ' + role_desc
+
 
 if __name__ == '__main__':
     app.run()
