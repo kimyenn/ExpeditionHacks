@@ -1,4 +1,4 @@
-# Expeditionhacks Seattle 2017 [~36 hours]
+# ExpeditionHacks Seattle 2017
 
 ### Team GitNews Members
 
@@ -12,9 +12,9 @@ How to curate (refine, prioritize, & suggest) news stories/summaries for top nat
 
 ### Our Solution
 
-Utilizing RSS Feeds, NLP, and a specific machine learning algorithm for each advisor, we are able to truly suggest the top news stories in an easy to read format catered to the target audience. Feedback is implemented by two simple icons for each news articles presented which someone can click on to indicate if the article was useful. The models are then retrained utilizing the additional feedback.
+Utilizing RSS Feeds, NLP, and a specific machine learning algorithm for each advisor, we were able to truly suggest the top news stories in an easy to read format catered to the target audience. Feedback is implemented by two simple icons for each news articles presented which someone can click on to indicate if the article was useful. The models are then retrained utilizing the additional feedback.
 
-In the end, we are able to present the top 10 (configurable) news snippet for any specific advisor in a clean and intuitive UI :+1:
+In the end, we are able to present the top 10 (number configurable) news snippet for any specific advisor in a clean and intuitive UI :+1:
 
 
 ### What we used:
