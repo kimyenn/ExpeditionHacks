@@ -50,7 +50,7 @@ def api_roles(roleid):
     
     modeling.retrieve_news(role_desc)
     output =[]
-    with open('data/'+role_desc+'.csv') as csvfile: 
+    with open('data/'+role_desc+'_results.csv') as csvfile: 
         reader = csv.DictReader(csvfile, delimiter='|') 
         data = {}
         for row in reader:
