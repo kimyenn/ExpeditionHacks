@@ -41,6 +41,10 @@ def format_df_all(news_feeds):
     for role in roles:
         df[role[0]] = 0
 
+    for i in xrange(len(df)):
+        new_summary = df.iloc[i, 1].split('<')[0]
+        df.set_value(i, 'summary', new_summary)
+
     vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
     terms_list = [role[1] for role in roles]
 
@@ -120,45 +124,52 @@ def predict(df, advisor, limit=10):
     df = df.iloc[:limit,]
     df.to_csv('data/' + advisor + '_results.csv', index=False, encoding='utf-8', sep='|')
 
-def add_and_retrain_model(feedback):
-    # feedback is a list
-
-    # for role in roles:
-    #     df[role[0]] = 0
-
-    # vect = TfidfVectorizer(tokenizer=normalize, stop_words='english')
-    # terms_list = [role[1] for role in roles]
-
-    # for i in xrange(len(df)):
-    #     title = df.iloc[i]['title']
-    #     tfidf = vect.fit_transform([title, terms_list[0], terms_list[1], terms_list[2]])
-    #     df.iloc[i,-3:] = (tfidf * tfidf.T).A[0][1:]
+def add_and_retrain_model(feedback, advisor):
+    update_col = 'y_' + advisor
+    training = pd.read_csv('data/training_data.csv')
 
     for item in feedback:
-        feedback
+        title = item['title']
+        to_update = training[training['title'] == title].index.tolist()
+        for ix in to_update:
+            training.set_value(ix, update_col, item['feedback'])
 
-    for role in roles:
-        df['y_'+ role[0]] = 0
-    pass
+    with open('models/ice_director_nb.pkl') as f:
+        ice_director_nb = pickle.load(f)
+    with open('models/md_syria_nb.pkl') as f:
+        md_syria_nb = pickle.load(f)
+    with open('models/nkpg_nb.pkl') as f:
+        nkpg_nb = pickle.load(f)
+
+    X = training['title'] + training['summary']
+    y_ice = training['y_ice_director']
+    y_md_syria = training['y_md_syria']
+    y_nkpg = training['y_nkpg']
+    count_vectorizer = CountVectorizer(stop_words='english')
+    tf = count_vectorizer.fit_transform(X)
+    ice_director_nb.fit(tf, y_ice)
+    md_syria_nb.fit(tf, y_md_syria)
+    nkpg_nb.fit(tf, y_nkpg)
+
+    with open('models/count_vectorizer.pkl', 'w') as f:
+    pickle.dump(count_vectorizer, f)
+    with open('models/ice_director_nb.pkl', 'w') as f:
+        pickle.dump(ice_director_nb, f)
+    with open('models/md_syria_nb.pkl', 'w') as f:
+        pickle.dump(md_syria_nb, f)
+    with open('models/nkpg_nb.pkl', 'w') as f:
+        pickle.dump(nkpg_nb, f)
 
 if __name__ == '__main__':
     with open('models/count_vectorizer.pkl') as f:
         count_vectorizer = pickle.load(f)
     if len(sys.argv) == 2: # only run model, return results
         advisor = sys.argv[1]
-        # if advisor == 'ice_director':
-        #     model = ice_director_nb
-        # elif advisor == 'md_syria':
-        #     model = md_syria_nb
-        # elif advisor == 'nkpg':
-        #     model = nkpg_nb
         news_feeds = feedReader()
         news_df = format_df_one(news_feeds, advisor)
         predict(news_df, advisor)
 
     elif len(sys.argv) == 3: # retrain model, no return
-        with open('models/count_vectorizer.pkl') as f:
-            vectorizer = pickle.load(f)
         advisor = sys.argv[1]
         feedback = sys.argv[2]
         data = json.loads(feedback) 
