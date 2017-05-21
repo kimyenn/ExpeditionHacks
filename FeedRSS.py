@@ -4,22 +4,22 @@ from array import array
 
 def feedReader():
     linkList = ['http://feeds.bbci.co.uk/news/rss.xml?edition=uk',
-               # 'http://rss.cnn.com/rss/cnn_topstories.rss',
-               # 'http://rss.cnn.com/rss/cnn_health.rss',
-               # 'http://rss.cnn.com/rss/cnn_showbiz.rss',
-               # 'http://rss.cnn.com/rss/cnn_travel.rss',
-               # 'http://rss.cnn.com/rss/cnn_living.rss',
-               # 'http://rss.cnn.com/services/podcasting/cnn10/rss.xml',
-               # 'http://rss.cnn.com/rss/cnn_latest.rss',
-               # 'http://rss.cnn.com/rss/money_markets.rss'
-               # 'http://rss.cnn.com/rss/cnn_health.rss',
-               # 'http://rss.cnn.com/rss/cnn_world.rss',
-               # 'http://rss.cnn.com/rss/cnn_us.rss',
-               # 'http://rss.cnn.com/rss/money_latest.rss',
-               # 'http://rss.cnn.com/rss/cnn_allpolitics.rss',
-               # 'http://rss.cnn.com/rss/cnn_tech.rss',
-               # 'http://rss.cnn.com/rss/money_technology.rss',
-               # 'http://rss.cnn.com/rss/cnn_topstories.rss',
+                'http://rss.cnn.com/rss/cnn_topstories.rss',
+                'http://rss.cnn.com/rss/cnn_health.rss',
+                'http://rss.cnn.com/rss/cnn_showbiz.rss',
+                'http://rss.cnn.com/rss/cnn_travel.rss',
+                'http://rss.cnn.com/rss/cnn_living.rss',
+                'http://rss.cnn.com/services/podcasting/cnn10/rss.xml',
+                'http://rss.cnn.com/rss/cnn_latest.rss',
+                'http://rss.cnn.com/rss/money_markets.rss'
+                'http://rss.cnn.com/rss/cnn_health.rss',
+                'http://rss.cnn.com/rss/cnn_world.rss',
+                'http://rss.cnn.com/rss/cnn_us.rss',
+                'http://rss.cnn.com/rss/money_latest.rss',
+                'http://rss.cnn.com/rss/cnn_allpolitics.rss',
+                'http://rss.cnn.com/rss/cnn_tech.rss',
+                'http://rss.cnn.com/rss/money_technology.rss',
+                'http://rss.cnn.com/rss/cnn_topstories.rss',
                 'http://feeds.reuters.com/news/artsculture',
                 'http://feeds.reuters.com/reuters/businessNews',
                 'http://feeds.reuters.com/reuters/companyNews',
@@ -49,8 +49,6 @@ def feedReader():
             feedEntry = [entry['title'], entry['title_detail']['value'], 
                      entry['summary'],
                      entry['summary_detail']['value'], 
-                     entry['link'],
-                     entry['published'],
-                     entry['published_parsed']]
+                     entry['link']]
             feeds.append(feedEntry)
     return feeds
