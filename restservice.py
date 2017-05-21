@@ -23,7 +23,7 @@ def api_feed_articles():
 @app.route('/update', methods=['POST'])
 def api_update():
     content = request.get_json(silent=True)
-    return "hoa"
+    return content
 
 @app.route('/roles/<roleid>')
 def api_roles(roleid):
@@ -36,7 +36,7 @@ def api_roles(roleid):
         role_desc = 'nkpg'
     
     modeling.retrieve_news(role_desc)
-    return 'role ' + role_desc
+    return 'Current role ' + role_desc
 
 
 if __name__ == '__main__':
